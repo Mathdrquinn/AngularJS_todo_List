@@ -1,0 +1,25 @@
+{
+  "name": "angular_demo",
+  "version": "0.0.0",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "angularJS"
+  ],
+  "authors": [
+    "Brendan Quinn"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.23",
+    "foundation": "~5.4.3"
+  }
+}

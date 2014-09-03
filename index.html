@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo w/ Angular</title>
+
+  <link rel="stylesheet" href="bower_components/foundation/css/foundation.css">
+  <link rel="stylesheet" href="images_and_fonts/icomoon/style.css">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body ng-app>
+  <div class="header">
+  <input type="text" class="search" placeholder="filter" ng-model="things.item">
+  </div>
+  <h1>todo</h1>
+  <div class="container" ng-controller="MainController">
+    <form action="">
+      <input ng-model="newItem.item" type="text" placeholder="Add a new todo">
+      <button ng-click="addItem(newItem)" type="submit" style="display: none"></button>
+    </form>
+
+    <ul>
+      <li ng-repeat="i in items | filter: things.item">
+        <div class="icon">
+          <!-- uncheck button -->
+          <a href="" ng-click="uncheckItem(items, i.$$hashKey); subtractCompleted(); statusClass='blank'" ng-class="!i.status ? 'hidden' : 'blank'" class="icon-checkmark"></a>
+          <!-- check off button -->
+          <a href="" ng-click="checkOffItem(items, i.$$hashKey); statusClass='strike'; addCompleted()" ng-class="i.status ? 'hidden' : 'blank'" class="icon-checkmark-2"></a>
+        </div>
+        <!-- writes item name -->
+        <span class="clickable" ng-class="statusClass" ng-dblclick="changeClass()">{{ i.item }}</span>
+        <!-- delete item button -->
+        <a href="" ng-click="removeItem(items, i.$$hashKey)" class="icon-close remove"></a>
+
+        <form class="hidden" ng-class="editor" action="">
+          <input class="" type="text" placeholder="{{i.item}}" ng-model="i.item">
+          <label for="hide"><input name="hide" type="checkbox" ng-click="changeClass()">Hide</label>
+          <input class="hidden" ng-click="editor='hidden'; editItem(items, i, i.item)" type="submit">
+        </form>
+      </li>
+    </ul>
+
+    <div class="menu row">
+      <span class="menuLeft large-4 columns">{{items.length}} item(s) remaining</span>
+      <span class="menuCenter large-4 columns">
+        <a id="all" href="">All</a>
+        <a id="active" href="">Active</a>
+        <a id="completed" href="">Completed</a>
+      </span>
+      <span class="menuRight large-4 columns">
+        <button id="clearCompleted" ng-click="clearCompleted()" alt="clear completed">Clear Completed (  {{completed}} )</button>
+      </span>
+    </div>
+
+  </div>
+  <footer>Double Click to Edit Todo</footer>
+
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="scripts/main.js"></script>
+</body>
+</html>
