@@ -27,7 +27,7 @@ function MainController($scope) {
       if (items[i].$$hashKey === itemId) {
         items.splice(i, 1);
       }
-      else {console.log('Did not delte ' + $scope.items[i].item)}
+      else {console.log('Did not delete ' + $scope.items[i].item)}
     }
     console.log('Here is the list' + $scope.items);
   };
@@ -53,8 +53,6 @@ function MainController($scope) {
     for (var i = 0; i< items.length; i++) {
       if (items[i].$$hashKey === itemId) {
         items[i].status = true;
-        console.log('Checked off ' + $scope.items[i].item)
-        console.log('its status is: ' + $scope.items[i].status)
       }
       else {}
     }
@@ -67,47 +65,49 @@ function MainController($scope) {
     for (var i = 0; i< items.length; i++) {
       if (items[i].$$hashKey === itemId) {
         items[i].status = false;
-        console.log('unchecked ' + $scope.items[i].item)
-        console.log('its status is: ' + $scope.items[i].status)
       }
       else {}
     }
     return $scope.items;
   };
 
+  $scope.incompleteLength = function () {
+      function isFalsy(value) {
+
+          console.log("the value is" + value);
+          return !value.status;
+      }
+      console.log($scope.items.filter(isFalsy).length);
+      this.number =  $scope.items.filter(isFalsy).length;
+      console.log("the number is " + this.number);
+      return $scope.items.filter(isFalsy).length;
+  };
+
+    $scope.incompleteLength();
+
   //ng-click funtions to calculate the number of completed tasks
   $scope.addCompleted = function() {
-    console.log('add to completed');
     $scope.completed = $scope.completed + 1;
   };
   $scope.subtractCompleted = function() {
-    console.log('add to completed');
     $scope.completed = $scope.completed - 1;
   };
 
   //ng-click funciton to delete completed tasks
   $scope.clearCompleted = function () {
+    //blank arr to hold false items
     window.tempArr = [];
+
     angular.forEach($scope.items, function(item) {
-      
-      var fakeArr = $scope.items
 
       if(item.status === false) {
         tempArr.push(item);
       }
+
     });
 
     $scope.items = tempArr;
-
-    // for (var i = 0; i< items.length; i++) {
-    //   console.log('running for loop');
-    //   if (items[i].status === true) {
-    //     console.log('delete: ' + items[i].name);
-    //     $scope.items.splice(i, 1);
-    //   }
-    //   else {}
-    // }
-    // console.log('Here is the list' + $scope.items);
+    $scope.completed = 0;
   };
 
 }

@@ -20,12 +20,12 @@
     </form>
 
     <ul>
-      <li ng-repeat="i in items | filter: things.item">
+      <li ng-repeat="i in items | filter: things.item | filter : use">
         <div class="icon">
           <!-- uncheck button -->
-          <a href="" ng-click="uncheckItem(items, i.$$hashKey); subtractCompleted(); statusClass='blank'" ng-class="!i.status ? 'hidden' : 'blank'" class="icon-checkmark"></a>
+          <a href="" ng-click="uncheckItem(items, i.$$hashKey); subtractCompleted(); statusClass='blank'; huzah=!huzah" ng-hide="!huzah" class="icon-checkmark"></a>
           <!-- check off button -->
-          <a href="" ng-click="checkOffItem(items, i.$$hashKey); statusClass='strike'; addCompleted()" ng-class="i.status ? 'hidden' : 'blank'" class="icon-checkmark-2"></a>
+          <a href="" ng-click="checkOffItem(items, i.$$hashKey); statusClass='strike'; addCompleted(); huzah=!huzah" ng-hide="huzah" class="icon-checkmark-2"></a>
         </div>
         <!-- writes item name -->
         <span class="clickable" ng-class="statusClass" ng-dblclick="changeClass()">{{ i.item }}</span>
@@ -41,11 +41,11 @@
     </ul>
 
     <div class="menu row">
-      <span class="menuLeft large-4 columns">{{items.length}} item(s) remaining</span>
+      <span class="menuLeft large-4 columns">{{incompleteLength()}} item(s) remaining</span>
       <span class="menuCenter large-4 columns">
-        <a id="all" href="">All</a>
-        <a id="active" href="">Active</a>
-        <a id="completed" href="">Completed</a>
+        <a id="all" href="" ng-click="use.status = true && false">All</a>
+        <a id="active" href="" ng-click="use.status = false">Active</a>
+        <a id="completed" href="" ng-click="use.status = true">Completed</a>
       </span>
       <span class="menuRight large-4 columns">
         <button id="clearCompleted" ng-click="clearCompleted()" alt="clear completed">Clear Completed (  {{completed}} )</button>
